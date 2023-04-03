@@ -63,10 +63,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //if no company then default "personal" assigned.
+        if ($data['position'] == "") {
+            $data['position'] = "Not Set";
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'position' => $data['position']
         ]);
     }
 }

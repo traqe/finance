@@ -30,6 +30,14 @@
                         <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" value="{{ old('email') }}">
                         @include('alerts.feedback', ['field' => 'email'])
                     </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="tim-icons icon-bank"></i>
+                            </div>
+                        </div>
+                        <input type="text" name="position" class="form-control" placeholder="Position" value="">
+                    </div>
                     <div class="input-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
