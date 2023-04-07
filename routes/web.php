@@ -66,3 +66,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tables', ['as' => 'pages.tables', 'uses' => 'PageController@tables']);
     Route::get('typography', ['as' => 'pages.typography', 'uses' => 'PageController@typography']);
 });
+
+// Balance routes
+Route::get('balance', ['uses' => 'BalanceController@index', 'as' => 'balance.index']);

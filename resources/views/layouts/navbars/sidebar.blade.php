@@ -145,6 +145,13 @@
                 </a>
             </li>
 
+            <li @if ($pageSlug=='balance' ) class="active " @endif>
+                <a href="{{ route('balance.index') }}">
+                    <i class="tim-icons icon-coins"></i>
+                    <p>Balance</p>
+                </a>
+            </li>
+
 
             <!-- <li>
                 <a data-toggle="collapse" href="#clients">
