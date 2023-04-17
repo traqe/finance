@@ -18,9 +18,9 @@ class CreateBalancesTable extends Migration
             $table->string('name');
             $table->string('reference');
             $table->string('type');
-            $table->integer('amount');
+            $table->decimal('amount');
             $table->integer('profit_loss'); // 1 for profit, 0 for loss
-            $table->integer('overall_balance');
+            $table->decimal('overall_balance');
             $table->timestamps();
         });
     }

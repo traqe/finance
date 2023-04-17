@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Balance;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,6 +64,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        // initialize balance if not initialized.
+        if (Balance::all()->first() == NULL) {
+            $balance = new Balance();
+            $balance->name = "Set Balance";
+            $balance->reference = "Initializing balance account";
+            $balance->type = "Initial Injection";
+            $balance->amount = 0.00;
+            $balance->profit_loss = 1;
+            $balance->overall_balance = 0.00;
+            $balance->save();
+        }
+
         //if no company then default "personal" assigned.
         if ($data['position'] == "") {
             $data['position'] = "Not Set";
