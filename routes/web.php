@@ -69,3 +69,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Balance routes
 Route::get('balance', ['uses' => 'BalanceController@index', 'as' => 'balance.index']);
+Route::get('balance/create', ['uses' => 'BalanceController@create', 'as' => 'balance.create']);
+Route::post('balance/create', ['uses' => 'BalanceController@store', 'as' => 'balance.store']);
+Route::get('balance/edit/{id}', ['uses' => 'BalanceController@edit', 'as' => 'balance.edit']);
+Route::put('balance/edit/{id}', ['uses' => 'BalanceController@update', 'as' => 'balance.update']);
+Route::delete('balance/{id}', ['uses' => 'BalanceController@destroy', 'as' => 'balance.delete']);
