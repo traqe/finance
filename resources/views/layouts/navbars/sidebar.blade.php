@@ -58,13 +58,6 @@
                                 <p>Payments</p>
                             </a>
                         </li>
-                        <!--  added petty cash link -->
-                        <li @if ($pageSlug=='pettycash' ) class="active " @endif>
-                            <a href="#">
-                                <i class="tim-icons icon-coins"></i>
-                                <p>Petty Cash</p>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </li>
