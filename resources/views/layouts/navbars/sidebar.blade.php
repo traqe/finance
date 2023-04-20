@@ -46,16 +46,16 @@
                                 <p>Income</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug=='transfers' ) class="active " @endif>
-                            <a href="{{ route('transfer.index')  }}">
-                                <i class="tim-icons icon-send"></i>
-                                <p>Transfers</p>
-                            </a>
-                        </li>
                         <li @if ($pageSlug=='payments' ) class="active " @endif>
                             <a href="{{ route('transactions.type', ['type' => 'payment'])  }}">
                                 <i class="tim-icons icon-money-coins"></i>
                                 <p>Payments</p>
+                            </a>
+                        </li>
+                        <li @if ($pageSlug=='transfers' ) class="active " @endif>
+                            <a href="{{ route('transfer.index')  }}">
+                                <i class="tim-icons icon-send"></i>
+                                <p>Transfers</p>
                             </a>
                         </li>
                     </ul>
