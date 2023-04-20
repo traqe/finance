@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Balance;
 use App\Sale;
 use App\Client;
 use App\Provider;
@@ -36,7 +37,7 @@ class TransactionController extends Controller
     {
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
         Carbon::setWeekEndsAt(Carbon::SATURDAY);
-        
+
         $salesperiods = [];
         $transactionsperiods = [];
 
@@ -147,10 +148,13 @@ class TransactionController extends Controller
                 }
 
                 $transaction->create($request->all());
+                $current = Balance::all()->last();
+                $current->overall_balance += $request->get('amount');
+                $current->save();
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'expense'])
-                    ->withStatus('Expense recorded successfully.');
+                    ->withStatus('Expense recorded successfully. Also check your balance');
 
             case 'payment':
                 if ($request->get('amount') > 0) {
@@ -158,17 +162,23 @@ class TransactionController extends Controller
                 }
 
                 $transaction->create($request->all());
+                $current = Balance::all()->last();
+                $current->overall_balance += $request->get('amount');
+                $current->save();
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'payment'])
-                    ->withStatus('Payment registered successfully.');
+                    ->withStatus('Payment registered successfully. Also check your balance');
 
             case 'income':
                 $transaction->create($request->all());
+                $current = Balance::all()->last();
+                $current->overall_balance += $request->get('amount');
+                $current->save();
 
                 return redirect()
                     ->route('transactions.type', ['type' => 'income'])
-                    ->withStatus('Login successfully registered.');
+                    ->withStatus('Login successfully registered. Also Check your balance');
 
             default:
                 return redirect()

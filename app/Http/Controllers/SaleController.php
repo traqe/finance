@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Balance;
 use App\Client;
 use App\Sale;
 use App\Product;
@@ -23,7 +24,6 @@ class SaleController extends Controller
         $sales = Sale::latest()->paginate(25);
 
         return view('sales.index', compact('sales'));
-
     }
 
     /**
@@ -48,12 +48,12 @@ class SaleController extends Controller
     {
         $existent = Sale::where('client_id', $request->get('client_id'))->where('finalized_at', null)->get();
 
-        if($existent->count()) {
-            return back()->withError('There is already an unfinished sale belonging to this customer. <a href="'.route('sales.show', $existent->first()).'">Click here to go to it</a>');
+        if ($existent->count()) {
+            return back()->withError('There is already an unfinished sale belonging to this customer. <a href="' . route('sales.show', $existent->first()) . '">Click here to go to it</a>');
         }
 
         $sale = $model->create($request->all());
-        
+
         return redirect()
             ->route('sales.show', ['sale' => $sale->id])
             ->withStatus('Sale registered successfully, you can start registering products and transactions.');
@@ -92,7 +92,7 @@ class SaleController extends Controller
         foreach ($sale->products as $sold_product) {
             $product_name = $sold_product->product->name;
             $product_stock = $sold_product->product->stock;
-            if($sold_product->qty > $product_stock) return back()->withError("The product '$product_name' does not have enough stock. Only has $product_stock units.");
+            if ($sold_product->qty > $product_stock) return back()->withError("The product '$product_name' does not have enough stock. Only has $product_stock units.");
         }
 
         foreach ($sale->products as $sold_product) {
@@ -100,12 +100,15 @@ class SaleController extends Controller
             $sold_product->product->save();
         }
 
+        $current = Balance::all()->last();
+        $current->overall_balance += $sale->total_amount;
         $sale->finalized_at = Carbon::now()->toDateTimeString();
         $sale->client->balance -= $sale->total_amount;
         $sale->save();
+        $current->save();
         $sale->client->save();
 
-        return back()->withStatus('The sale has been successfully completed.');
+        return back()->withStatus('The sale has been successfully completed. Check your Balance');
     }
 
     public function addproduct(Sale $sale)
@@ -158,7 +161,7 @@ class SaleController extends Controller
 
     public function storetransaction(Request $request, Sale $sale, Transaction $transaction)
     {
-        switch($request->all()['type']) {
+        switch ($request->all()['type']) {
             case 'income':
                 $request->merge(['title' => 'Payment Received from Sale ID: ' . $request->get('sale_id')]);
                 break;
@@ -166,8 +169,8 @@ class SaleController extends Controller
             case 'expense':
                 $request->merge(['title' => 'Sale Return Payment ID: ' . $request->all('sale_id')]);
 
-                if($request->get('amount') > 0) {
-                    $request->merge(['amount' => (float) $request->get('amount') * (-1) ]);
+                if ($request->get('amount') > 0) {
+                    $request->merge(['amount' => (float) $request->get('amount') * (-1)]);
                 }
                 break;
         }
@@ -188,15 +191,15 @@ class SaleController extends Controller
 
     public function updatetransaction(Request $request, Sale $sale, Transaction $transaction)
     {
-        switch($request->get('type')) {
+        switch ($request->get('type')) {
             case 'income':
-                $request->merge(['title' => 'Payment Received from Sale ID: '. $request->get('sale_id')]);
+                $request->merge(['title' => 'Payment Received from Sale ID: ' . $request->get('sale_id')]);
                 break;
 
             case 'expense':
-                $request->merge(['title' => 'Sale Return Payment ID: '. $request->get('sale_id')]);
+                $request->merge(['title' => 'Sale Return Payment ID: ' . $request->get('sale_id')]);
 
-                if($request->get('amount') > 0) {
+                if ($request->get('amount') > 0) {
                     $request->merge(['amount' => (float) $request->get('amount') * (-1)]);
                 }
                 break;
