@@ -7,6 +7,7 @@ use App\Client;
 use App\Transaction;
 use App\PaymentMethod;
 use Illuminate\Http\Request;
+use App\Currency;
 use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
@@ -19,8 +20,8 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::paginate(25);
-
-        return view('clients.index', compact('clients'));
+        $currency = Currency::where('selected', 1)->get()->first();
+        return view('clients.index', compact('clients', 'currency'));
     }
 
     /**
@@ -42,7 +43,7 @@ class ClientController extends Controller
     public function store(ClientRequest $request, Client $client)
     {
         $client->create($request->all());
-        
+
         return redirect()->route('clients.index')->withStatus('Successfully registered customer.');
     }
 
@@ -103,6 +104,6 @@ class ClientController extends Controller
     {
         $payment_methods = PaymentMethod::all();
 
-        return view('clients.transactions.add', compact('client','payment_methods'));
+        return view('clients.transactions.add', compact('client', 'payment_methods'));
     }
 }

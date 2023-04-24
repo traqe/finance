@@ -10,7 +10,7 @@
                         <h3><strong>Balance &rightarrow;</strong></h3>
                     </div>
                     <div class="col-md-6">
-                        <h3> <strong>$ {{ $current->overall_balance }}</strong></h3>
+                        <h3> <strong>{{ $currency->sign }} {{ $current->overall_balance * $currency->index }}</strong></h3>
                     </div>
                 </div>
             </div>
@@ -91,8 +91,8 @@
                                     <form action="{{ route('balance.delete', $balance->id ) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-sm btn-primary">
-                                            Delete <br> Transaction
+                                        <button type="submit" class="btn btn-link" title="Delete Transaction">
+                                            <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                     </form>
                                 </td>

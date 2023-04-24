@@ -102,7 +102,7 @@
                             </a>
                         </li>
                         <li @if ($pageSlug=='currency' ) class="active " @endif>
-                            <a href="#">
+                            <a href="{{route('currencies.index')}}">
                                 <i class="tim-icons icon-wallet-43"></i>
                                 <p>Currency Conversion</p>
                             </a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Balance;
+use App\Currency;
 use App\Transfer;
 use App\Transaction;
 use App\PaymentMethod;
@@ -19,7 +20,8 @@ class TransferController extends Controller
     public function index(Transfer $transfer)
     {
         return view('transfers.index', [
-            'transfers' => Transfer::latest()->paginate(25)
+            'transfers' => Transfer::latest()->paginate(25),
+            'currency' => Currency::where('selected', 1)->get()->first()
         ]);
     }
 

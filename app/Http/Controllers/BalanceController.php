@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Balance;
+use App\Currency;
 
 class BalanceController extends Controller
 {
@@ -11,7 +12,8 @@ class BalanceController extends Controller
     {
         $current =  Balance::all()->last();
         $balances = Balance::all();
-        return view('balance.index', compact('current', 'balances'));
+        $currency = Currency::where('selected', 1)->get()->first();
+        return view('balance.index', compact('current', 'balances', 'currency'));
     }
 
     public function create()

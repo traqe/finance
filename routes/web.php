@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurrencyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -74,3 +75,12 @@ Route::post('balance/create', ['uses' => 'BalanceController@store', 'as' => 'bal
 Route::get('balance/edit/{id}', ['uses' => 'BalanceController@edit', 'as' => 'balance.edit']);
 Route::put('balance/edit/{id}', ['uses' => 'BalanceController@update', 'as' => 'balance.update']);
 Route::delete('balance/{id}', ['uses' => 'BalanceController@destroy', 'as' => 'balance.delete']);
+
+// Currency routes
+Route::get('currencies', ['uses' => 'CurrencyController@index', 'as' => 'currencies.index']);
+Route::get('currencies/create', ['uses' => 'CurrencyController@create', 'as' => 'currencies.create']);
+Route::post('currencies/create', ['uses' => 'CurrencyController@store', 'as' => 'currencies.store']);
+Route::get('currencies/edit/{id}', ['uses' => 'CurrencyController@edit', 'as' => 'currencies.edit']);
+Route::put('currencies/edit/{id}', ['uses' => 'CurrencyController@update', 'as' => 'currencies.update']);
+Route::delete('currencies/{id}', ['uses' => 'CurrencyController@destroy', 'as' => 'currencies.delete']);
+Route::put('currencies', ['uses' => 'CurrencyController@select', 'as' => 'currencies.select']);

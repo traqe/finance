@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Balance;
+use App\Currency;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -75,6 +76,16 @@ class RegisterController extends Controller
             $balance->profit_loss = 1;
             $balance->overall_balance = 0.00;
             $balance->save();
+        }
+
+        //if there is no currency insert base currency USD ($)
+        if (Currency::all()->first() == NULL) {
+            $currency = new Currency();
+            $currency->name = 'US Dollars';
+            $currency->sign = '$';
+            $currency->index = 1;
+            $currency->selected = 1;
+            $currency->save();
         }
 
         //if no company then default "personal" assigned.

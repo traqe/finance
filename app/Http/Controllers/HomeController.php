@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Currency;
 use App\Sale;
 use Carbon\Carbon;
 use App\SoldProduct;
@@ -23,7 +25,7 @@ class HomeController extends Controller
         $anualsales = $this->getAnnualSales();
         $anualclients = $this->getAnnualClients();
         $anualproducts = $this->getAnnualProducts();
-        
+
         return view('dashboard', [
             'monthlybalance'            => $monthlyBalance,
             'monthlybalancebymethod'    => $monthlyBalanceByMethod,
@@ -36,7 +38,8 @@ class HomeController extends Controller
             'lastincomes'               => $this->getMonthlyTransactions()->get('lastincomes'),
             'lastexpenses'              => $this->getMonthlyTransactions()->get('lastexpenses'),
             'semesterexpenses'          => $this->getMonthlyTransactions()->get('semesterexpenses'),
-            'semesterincomes'           => $this->getMonthlyTransactions()->get('semesterincomes')
+            'semesterincomes'           => $this->getMonthlyTransactions()->get('semesterincomes'),
+            'currency' => Currency::where('selected', 1)->get()->first()
         ]);
     }
 
@@ -57,7 +60,7 @@ class HomeController extends Controller
     public function getAnnualSales()
     {
         $sales = [];
-        foreach(range(1, 12) as $i) {
+        foreach (range(1, 12) as $i) {
             $monthlySalesCount = Sale::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $i)->count();
 
             array_push($sales, $monthlySalesCount);
@@ -68,7 +71,7 @@ class HomeController extends Controller
     public function getAnnualClients()
     {
         $clients = [];
-        foreach(range(1, 12) as $i) {
+        foreach (range(1, 12) as $i) {
             $monthclients = Sale::selectRaw('count(distinct client_id) as total')
                 ->whereYear('created_at', Carbon::now()->year)
                 ->whereMonth('created_at', $i)
@@ -82,11 +85,11 @@ class HomeController extends Controller
     public function getAnnualProducts()
     {
         $products = [];
-        foreach(range(1, 12) as $i) { 
+        foreach (range(1, 12) as $i) {
             $monthproducts = SoldProduct::whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', $i)->sum('qty');
 
             array_push($products, $monthproducts);
-        }        
+        }
         return "[" . implode(',', $products) . "]";
     }
 
@@ -109,7 +112,7 @@ class HomeController extends Controller
                 ->sum('amount');
 
             $semesterincomes += $incomes;
-            $lastincomes = round($incomes).','.$lastincomes;
+            $lastincomes = round($incomes) . ',' . $lastincomes;
 
             $expenses = abs(Transaction::whereIn('type', ['expense', 'payment'])
                 ->whereYear('created_at', $actualmonth->year)
@@ -117,13 +120,13 @@ class HomeController extends Controller
                 ->sum('amount'));
 
             $semesterexpenses += $expenses;
-            $lastexpenses = round($expenses).','.$lastexpenses;
+            $lastexpenses = round($expenses) . ',' . $lastexpenses;
 
             $actualmonth->subMonth(1);
         }
 
-        $lastincomes = '['.$lastincomes.']';
-        $lastexpenses = '['.$lastexpenses.']';
+        $lastincomes = '[' . $lastincomes . ']';
+        $lastexpenses = '[' . $lastexpenses . ']';
 
         return collect(compact('lastmonths', 'lastincomes', 'lastexpenses', 'semesterincomes', 'semesterexpenses'));
     }

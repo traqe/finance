@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Balance;
 use App\Client;
+use App\Currency;
 use App\Sale;
 use App\Product;
 use Carbon\Carbon;
@@ -22,8 +23,8 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::latest()->paginate(25);
-
-        return view('sales.index', compact('sales'));
+        $currency = Currency::where('selected', 1)->get()->first();
+        return view('sales.index', compact('sales', 'currency'));
     }
 
     /**

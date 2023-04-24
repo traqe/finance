@@ -36,7 +36,7 @@
                                 <td>{{ $sale->user->name }}</td>
                                 <td>{{ $sale->products->count() }}</td>
                                 <td>{{ $sale->products->sum('qty') }}</td>
-                                <td>{{ format_money($sale->transactions->sum('amount')) }}</td>
+                                <td>{{$currency->sign}}{{ ($sale->transactions->sum('amount')) * $currency->index }}</td>
                                 <td>
                                     @if (!$sale->finalized_at)
                                     <span class="text-danger">To Finalize</span>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Balance;
+use App\Currency;
 use App\Sale;
 use App\Client;
 use App\Provider;
@@ -27,10 +28,10 @@ class TransactionController extends Controller
             'expense' => 'Expense',
             'transfer' => 'Transfer'
         ];
-
+        $currency =  Currency::where('selected', '1')->get()->first();
         $transactions = Transaction::latest()->paginate(25);
 
-        return view('transactions.index', compact('transactions', 'transactionname'));
+        return view('transactions.index', compact('transactions', 'transactionname', 'currency'));
     }
 
     public function stats()
@@ -64,21 +65,23 @@ class TransactionController extends Controller
             'salesperiods'          => $salesperiods,
             'transactionsperiods'   => $transactionsperiods,
             'date'                  => Carbon::now(),
-            'methods'               => PaymentMethod::all()
+            'methods'               => PaymentMethod::all(),
+            'currency' => Currency::where('selected', 1)->get()->first()
         ]);
     }
 
     public function type($type)
     {
+        $currency = Currency::where('selected', 1)->get()->first();
         switch ($type) {
             case 'expense':
-                return view('transactions.expense.index', ['transactions' => Transaction::where('type', 'expense')->latest()->paginate(25)]);
+                return view('transactions.expense.index', ['transactions' => Transaction::where('type', 'expense')->latest()->paginate(25), 'currency' => $currency]);
 
             case 'payment':
-                return view('transactions.payment.index', ['transactions' => Transaction::where('type', 'payment')->latest()->paginate(25)]);
+                return view('transactions.payment.index', ['transactions' => Transaction::where('type', 'payment')->latest()->paginate(25), 'currency' => $currency]);
 
             case 'income':
-                return view('transactions.income.index', ['transactions' => Transaction::where('type', 'income')->latest()->paginate(25)]);
+                return view('transactions.income.index', ['transactions' => Transaction::where('type', 'income')->latest()->paginate(25), 'currency' => $currency]);
         }
     }
 

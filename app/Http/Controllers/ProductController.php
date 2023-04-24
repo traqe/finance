@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Currency;
 use App\ProductCategory;
 use App\Http\Requests\ProductRequest;
 
@@ -16,8 +17,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(25);
-
-        return view('inventory.products.index', compact('products'));
+        $currency = Currency::where('selected', 1)->get()->first();
+        return view('inventory.products.index', compact('products', 'currency'));
     }
 
     /**
