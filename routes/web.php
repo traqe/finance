@@ -84,3 +84,8 @@ Route::get('currencies/edit/{id}', ['uses' => 'CurrencyController@edit', 'as' =>
 Route::put('currencies/edit/{id}', ['uses' => 'CurrencyController@update', 'as' => 'currencies.update']);
 Route::delete('currencies/{id}', ['uses' => 'CurrencyController@destroy', 'as' => 'currencies.delete']);
 Route::put('currencies', ['uses' => 'CurrencyController@select', 'as' => 'currencies.select']);
+
+// statements routing
+Route::get('printIncome', ['uses' => 'StatementController@printIncome', 'as' => 'printIncome']);
+Route::get('printCashFlow', ['uses' => 'StatementController@printCashFlow', 'as' => 'printCashFlow']);
+Route::get('printBalance', ['uses' => 'StatementController@printBalance', 'as' => 'printBalance']);

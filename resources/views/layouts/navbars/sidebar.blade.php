@@ -96,10 +96,33 @@
                             </a>
                         </li>
                         <li @if ($pageSlug=='statements' ) class="active " @endif>
-                            <a href="#">
-                                <i class="tim-icons icon-app"></i>
-                                <p>Statements</p>
+                            <a data-toggle="collapse" href="#statements" {{ $section == 'statements' ? 'aria-expanded=true' : '' }}>
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <span class="nav-link-text">Statements</span>
+                                <b class="caret mt-1"></b>
                             </a>
+                            <div class="collapse {{ $section == 'statements' ? 'show' : '' }}" id="statements">
+                                <ul class="nav pl-4">
+                                    <li @if ($pageSlug=='income' ) class="active " @endif>
+                                        <a href="{{route('printIncome')}}">
+                                            <i class="tim-icons icon-wallet-43"></i>
+                                            <p>Income</p>
+                                        </a>
+                                    </li>
+                                    <li @if ($pageSlug=='cashflow' ) class="active " @endif>
+                                        <a href="{{route('printCashFlow')}}">
+                                            <i class="tim-icons icon-money-coins"></i>
+                                            <p>Cash Flow</p>
+                                        </a>
+                                    </li>
+                                    <li @if ($pageSlug=='balancesheet' ) class="active " @endif>
+                                        <a href="{{route('printBalance')}}">
+                                            <i class="tim-icons icon-coins"></i>
+                                            <p>Balance Sheet</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li @if ($pageSlug=='currency' ) class="active " @endif>
                             <a href="{{route('currencies.index')}}">
