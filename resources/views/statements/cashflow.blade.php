@@ -45,9 +45,11 @@
     </div>
     <div id="body">
         <div>
-            <h4>
-                Operational Activities
-            </h4>
+            <center>
+                <h4>
+                    Operational Activities
+                </h4>
+            </center>
         </div>
         <table class="table table-striped">
             <tr>
@@ -77,9 +79,11 @@
             @endforeach
         </table>
         <div>
-            <h4>
-                Financial Activities
-            </h4>
+            <center>
+                <h4>
+                    Financial Activities
+                </h4>
+            </center>
         </div>
         <table class="table table-striped">
             <tr>
@@ -100,9 +104,11 @@
             @endforeach
         </table>
         <div>
-            <h4>
-                Investment Activities
-            </h4>
+            <center>
+                <h4>
+                    Investment Activities
+                </h4>
+            </center>
         </div>
         <table class="table table-striped">
             <tr>
