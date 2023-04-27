@@ -8,6 +8,7 @@ use App\Sale;
 use App\Transaction;
 use App\Currency;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Database\Events\TransactionCommitted;
 
 class StatementController extends Controller
 {
@@ -63,7 +64,19 @@ class StatementController extends Controller
     }
     public function printCashFlow()
     {
-        $summaryData = array();
+        $sales = Sale::all();
+        $incomes = Transaction::where('type', 'income')->get();
+        $deductions = Balance::where('profit_loss', 0)->get();
+        $payments = Transaction::where('type', 'payment')->get();
+        $injections = Balance::where('profit_loss', 1)->get();
+        $expenses = Transaction::where('type', 'expense')->get();
+        $summaryData = array(
+            'incomes' => $incomes,
+            'deductions' => $deductions,
+            'payments' => $payments,
+            'injections' => $injections,
+            'expenses' => $expenses
+        );
         $pdf = PDF::loadView('statements.cashflow', $summaryData);
         $filename = "Cash Flow Statement";
         return $pdf->stream($filename . '.pdf', array('Attachment' => 0));
