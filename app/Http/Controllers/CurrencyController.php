@@ -31,11 +31,7 @@ class CurrencyController extends Controller
         $currency = Currency::findOrFail($id);
         $currency->name = $request->name;
         $currency->sign = $request->sign;
-        if ($request->index < 1) {
-            $currency->index = $request->index + 1;
-        } else {
-            $currency->index = $request->index;
-        }
+        $currency->index = $request->index;
         $currency->save();
 
         return redirect()->route('currencies.index')->with('success', 'Currency Successfully Updated');
@@ -46,11 +42,7 @@ class CurrencyController extends Controller
         $currency = new Currency();
         $currency->name = $request->name;
         $currency->sign = $request->sign;
-        if ($request->index < 1) {
-            $currency->index = $request->index + 1;
-        } else {
-            $currency->index = $request->index;
-        }
+        $currency->index = $request->index;
         $currency->save();
         return redirect()->route('currencies.index')->with('success', 'Currency Recorded successfully');
     }

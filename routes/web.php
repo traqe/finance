@@ -89,3 +89,6 @@ Route::put('currencies', ['uses' => 'CurrencyController@select', 'as' => 'curren
 Route::get('printIncome', ['uses' => 'StatementController@printIncome', 'as' => 'printIncome']);
 Route::get('printCashFlow', ['uses' => 'StatementController@printCashFlow', 'as' => 'printCashFlow']);
 Route::get('printBalance', ['uses' => 'StatementController@printBalance', 'as' => 'printBalance']);
+
+// decision support system
+Route::get('decisions', ['uses' => 'DecisionController@index', 'as' => 'decisions.index']);

@@ -131,7 +131,7 @@
                             </a>
                         </li>
                         <li @if ($pageSlug=='decision_support' ) class="active " @endif>
-                            <a href="#">
+                            <a href="{{route('decisions.index')}}">
                                 <i class="tim-icons icon-chart-bar-32"></i>
                                 <p>Decision Support</p>
                             </a>
