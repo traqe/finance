@@ -14,12 +14,16 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
+    th {
+        text-align: left;
+    }
+
     table {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 12.5pt;
         border-top: 1px solid;
         border-bottom: 1px solid;
-        width: 80%;
+        width: 100%;
     }
 
     #border {
@@ -81,7 +85,7 @@
 
         <div>
             <h4>
-                Total (Revenue):....................... {{$currency->sign}}{{ ($incomes_sum + $injections_sum + $sales_sum) * $currency->index }}
+                Total (Revenue): {{$currency->sign}}{{ ($incomes_sum + $injections_sum + $sales_sum) * $currency->index }}
             </h4>
             <h4>
 
@@ -89,7 +93,7 @@
         </div>
         <div>
             <h4>
-                Total (Outgoings):.................... {{$currency->sign}}{{ ($expenses_sum + $deductions_sum + $payments_sum) * $currency->index }}
+                Total (Outgoings): {{$currency->sign}}{{ ($expenses_sum + $deductions_sum + $payments_sum) * $currency->index }}
             </h4>
         </div>
         <br>

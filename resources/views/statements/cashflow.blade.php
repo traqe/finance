@@ -17,6 +17,10 @@
         padding: 6px;
     }
 
+    th {
+        text-align: left;
+    }
+
     table tr:nth-child(even) {
         background-color: #f2f2f2;
     }
@@ -64,7 +68,7 @@
                 <td>{{date('d-m-y', strtotime($income->created_at))}}</td>
                 <td>{{$income->title}}</td>
                 <td>{{$income->type}}</td>
-                <td>{{$income->amount}}</td>
+                <td>{{$currency->sign}}{{$income->amount * $currency->index}}</td>
                 <td>{{$income->reference}}</td>
             </tr>
             @endforeach
@@ -73,7 +77,7 @@
                 <td>{{date('d-m-y', strtotime($deduction->created_at))}}</td>
                 <td>{{$deduction->name}}</td>
                 <td>{{$deduction->type}}</td>
-                <td>{{-$deduction->amount}}</td>
+                <td>{{$currency->sign}}{{-$deduction->amount * $currency->index}}</td>
                 <td>{{$deduction->reference}}</td>
             </tr>
             @endforeach
@@ -98,7 +102,7 @@
                 <td>{{date('d-m-y', strtotime($payment->created_at))}}</td>
                 <td>{{$payment->title}}</td>
                 <td>{{$payment->type}}</td>
-                <td>{{$payment->amount}}</td>
+                <td>{{$currency->sign}}{{$payment->amount * $currency->index}}</td>
                 <td>{{$payment->reference}}</td>
             </tr>
             @endforeach
@@ -123,7 +127,7 @@
                 <td>{{date('d-m-y', strtotime($injection->created_at))}}</td>
                 <td>{{$injection->name}}</td>
                 <td>{{$injection->type}}</td>
-                <td>{{$injection->amount}}</td>
+                <td>{{$currency->sign}}{{$injection->amount * $currency->index}}</td>
                 <td>{{$injection->reference}}</td>
             </tr>
             @endforeach
@@ -132,7 +136,7 @@
                 <td>{{date('d-m-y', strtotime($expense->created_at))}}</td>
                 <td>{{$expense->title}}</td>
                 <td>{{$expense->type}}</td>
-                <td>{{$expense->amount}}</td>
+                <td>{{$currency->sign}}{{$expense->amount * $currency->index}}</td>
                 <td>{{$expense->reference}}</td>
             </tr>
             @endforeach
