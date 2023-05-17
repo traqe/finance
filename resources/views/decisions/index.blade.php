@@ -1,37 +1,52 @@
 @extends('layouts.app', ['page' => 'Decision Support', 'pageSlug' => 'decision_support', 'section' => 'decision_support'])
 
 @section('content')
-<div class="slideshow-container">
-
-    <div class="mySlides fade">
-        <div class="numbertext">1 / 3</div>
-        <img src="img_nature_wide.jpg" style="width:100%">
-        <div class="text">Caption Text</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header">
+                    <div id="stats">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card ">
+                                    <div class="card-header">---</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card ">
+                                    <div class="card-header">---</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card ">
+                                    <div class="card-header">---</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card ">
+                                    <div class="card-header">---</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card ">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    ---
+                                </div>
+                                <div class="col-md-6">
+                                    ---
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="mySlides fade">
-        <div class="numbertext">2 / 3</div>
-        <img src="img_snow_wide.jpg" style="width:100%">
-        <div class="text">Caption Two</div>
-    </div>
-
-    <div class="mySlides fade">
-        <div class="numbertext">3 / 3</div>
-        <img src="img_mountains_wide.jpg" style="width:100%">
-        <div class="text">Caption Three</div>
-    </div>
-
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <a class="next" onclick="plusSlides(1)">❯</a>
-
 </div>
-<br>
-<div id="dots" style="text-align:center">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-</div>
-<!--after slideshow-->
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -126,11 +141,43 @@
                     <div class="card p-1 mb-4 text-white">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h3><strong></strong></h3>
+                                <div class="col-md-9">
+                                    <h5><strong>Balance:</strong></h5>
                                 </div>
-                                <div class="col-md-6">
-                                    <h3> <strong></strong></h3>
+                                <div class="col-md-3">
+                                    @if($balance->last()->overall_balance > 0)
+                                    <h5 style="color:blue"><strong>{{$currency->sign}} {{$balance->last()->overall_balance * $currency->index}}</strong></h5>
+                                    @else
+                                    <h5 style="color:red"><strong>{{$currency->sign}} {{$balance->last()->overall_balance * $currency->index }}</strong></h5>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5><strong>Injections:</strong></h5>
+                                </div>
+                                <div class="col-md-3">
+                                    <!--{{$injeciton_sum = 0}}
+                                    @foreach($balance as $injection)
+                                    @if($injection->profit_loss == 1)
+                                    {{$injeciton_sum += $injection->amount}}
+                                    @endif
+                                    @endforeach-->
+                                    <h5 style="color: green;"><strong>{{$currency->sign}} {{$injeciton_sum * $currency->index}}</strong></h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5><strong>Deductions:</strong></h5>
+                                </div>
+                                <div class="col-md-3">
+                                    <!--{{$deduction_sum = 0}}
+                                    @foreach($balance as $deduction)
+                                    @if($injection->profit_loss == 0)
+                                    {{$deduction_sum += $deduction->amount}}
+                                    @endif
+                                    @endforeach-->
+                                    <h5 style="color:red;"><strong>-{{$currency->sign}} {{$deduction_sum * $currency->index}}</strong></h5>
                                 </div>
                             </div>
                         </div>
@@ -141,21 +188,3 @@
     </div>
 </div>
 @endsection
-<script>
-    let slideIndex = 0;
-    showSlides();
-
-    function showSlides() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1
-        }
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 4000); // Change image every 2 seconds
-    }
-</script>

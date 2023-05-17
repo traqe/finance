@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Transaction;
 use App\Sale;
 use App\Currency;
+use App\Balance;
 
 class DecisionController extends Controller
 {
@@ -20,7 +21,9 @@ class DecisionController extends Controller
         $payments = Transaction::where('type', 'payment')->get();
         $expenses = Transaction::where('type', 'expense')->get();
         $currency = Currency::where('selected', 1)->get()->first();
+        // balance
+        $balance = Balance::all();
 
-        return view('decisions.index', compact('income', 'sales', 'payments', 'expenses', 'currency', 'clients'));
+        return view('decisions.index', compact('income', 'sales', 'payments', 'expenses', 'currency', 'clients', 'balance'));
     }
 }
