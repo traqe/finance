@@ -23,7 +23,7 @@ class DecisionController extends Controller
         $currency = Currency::where('selected', 1)->get()->first();
         // balance
         $balance = Balance::all();
-
-        return view('decisions.index', compact('income', 'sales', 'payments', 'expenses', 'currency', 'clients', 'balance'));
+        $transactions = Transaction::all();
+        return view('decisions.index', compact('transactions', 'income', 'sales', 'payments', 'expenses', 'currency', 'clients', 'balance'));
     }
 }

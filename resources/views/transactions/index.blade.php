@@ -71,7 +71,7 @@
                                         <i class="tim-icons icon-zoom-split"></i>
                                     </a>
                                     @elseif ($transaction->transfer_id)
-                                    <a href="{{ route('transfer.show', $transaction->transfer) }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="More details">
+                                    <a href="{{ route('transfer.index') }}" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Transfers">
                                         <i class="tim-icons icon-zoom-split"></i>
                                     </a>
                                     @else

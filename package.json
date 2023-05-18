@@ -19,6 +19,7 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
+        "@coreui/icons-vue": "^2.0.0",
         "bootstrap-icons": "^1.10.5"
     }
 }

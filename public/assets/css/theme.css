@@ -87,3 +87,7 @@
 * {
     box-sizing: border-box;
 }
+
+#Decision-Dashboard .col-md-3:hover {
+    transform: translate(0px, 2px);
+}

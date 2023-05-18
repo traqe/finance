@@ -1,7 +1,7 @@
 @extends('layouts.app', ['page' => 'Decision Support', 'pageSlug' => 'decision_support', 'section' => 'decision_support'])
 
 @section('content')
-<div class="container">
+<div class="container" id="Decision-Dashboard">
     <div class="row">
         <div class="col-md-12">
             <div class="card ">
@@ -9,22 +9,49 @@
                     <div id="stats">
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="card ">
+                                <div style="background-color: coral;" class="card">
+                                    <div class="card-header">
+                                        <div>
+                                            <h4><strong>Total # of Transactions</strong></h4>
+                                        </div>
+                                        <div>
+                                            <h4><strong>( {{count($transactions)}} )</strong></h4>
+                                        </div>
+                                        <div class="card" style="background-color:white;">
+                                            <h5 class="pt-1 pl-1">
+                                                <strong>
+                                                    Consider looking for more clients to generate more revenue.
+                                                </strong>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="background-color: rgb(140, 238, 43);" class="card">
+                                    <div class="card-header">
+                                        <div>
+                                            <h4><strong>Sales Decision Panel</strong></h4>
+                                        </div>
+                                        <div>
+                                            <h4><strong># ( {{count($sales)}} )</strong></h4>
+                                        </div>
+                                        <div class="card" style="background-color:white;">
+                                            @if((count($clients) > count($sales)) OR (count($sales)/count($clients) <=2)) <h5 class="pt-1 pl-1" style="color:red;"><strong>Your Client-to-Sale ratio is not looking good!</strong></h5>
+                                                @else
+                                                <h5 class="pt-1 pl-1" style="color:green;"><strong>Your Client-to-Sale ratio is not looking good!</strong></h5>
+                                                @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div style="background-color: rgb(73, 223, 214);;" class="card ">
                                     <div class="card-header">---</div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card ">
-                                    <div class="card-header">---</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card ">
-                                    <div class="card-header">---</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card ">
+                                <div style="background-color: rgb(107, 114, 214);" class="card ">
                                     <div class="card-header">---</div>
                                 </div>
                             </div>
@@ -119,12 +146,8 @@
                                     <h5><strong>Total Amount from Sales: {{$currency->sign}}{{ $sales->sum('total_amount') * $currency->index }}</strong></h5>
                                     <a href="{{ route('sales.index') }}" class="btn btn-sm btn-primary text-black">Manage Sales</a>
                                 </div>
-                                <!--{{ $client_count = 0 }}
-                                @foreach($clients as $client)
-                                {{$client_count += 1}}
-                                @endforeach-->
                                 <div class="col-md-6">
-                                    <h5><strong>No. of Clients: {{ $client_count }}</strong></h5>
+                                    <h5><strong>No. of Clients: {{ count($clients) }}</strong></h5>
                                     <h5><strong>Highest Sale from Client: {{$currency->sign}}{{ -$clients->min('balance') * $currency->index }} </strong></h5>
                                     <a href="{{ route('clients.index') }}" class="btn btn-sm btn-primary text-black">Manage Clients</a>
                                 </div>
