@@ -8,6 +8,9 @@ use App\Transaction;
 use App\Sale;
 use App\Currency;
 use App\Balance;
+use App\Provider;
+use App\PaymentMethod;
+use Mockery\Generator\Method;
 
 class DecisionController extends Controller
 {
@@ -24,6 +27,12 @@ class DecisionController extends Controller
         // balance
         $balance = Balance::all();
         $transactions = Transaction::all();
-        return view('decisions.index', compact('transactions', 'income', 'sales', 'payments', 'expenses', 'currency', 'clients', 'balance'));
+
+        //
+        $last_transaction = Transaction::all()->last();
+        $methods = PaymentMethod::all();
+        $latest_method = PaymentMethod::findOrFail($last_transaction->payment_method_id);
+        $providers = Provider::all();
+        return view('decisions.index', compact('latest_method', 'methods', 'providers', 'transactions', 'income', 'sales', 'payments', 'expenses', 'currency', 'clients', 'balance'));
     }
 }

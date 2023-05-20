@@ -12,7 +12,7 @@
                                 <div style="background-color: coral;" class="card">
                                     <div class="card-header">
                                         <div>
-                                            <h4><strong>Total # of Transactions</strong></h4>
+                                            <h4><strong>Total # of Transactions:</strong></h4>
                                         </div>
                                         <div>
                                             <h4><strong>( {{count($transactions)}} )</strong></h4>
@@ -20,7 +20,7 @@
                                         <div class="card" style="background-color:white;">
                                             <h5 class="pt-1 pl-1">
                                                 <strong>
-                                                    Consider looking for more clients to generate more revenue.
+                                                    Consider looking for more clients to enhance revenue.
                                                 </strong>
                                             </h5>
                                         </div>
@@ -31,7 +31,7 @@
                                 <div style="background-color: rgb(140, 238, 43);" class="card">
                                     <div class="card-header">
                                         <div>
-                                            <h4><strong>Sales Decision Panel</strong></h4>
+                                            <h4><strong>Sales Decision Panel:</strong></h4>
                                         </div>
                                         <div>
                                             <h4><strong># ( {{count($sales)}} )</strong></h4>
@@ -47,12 +47,36 @@
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: rgb(73, 223, 214);;" class="card ">
-                                    <div class="card-header">---</div>
+                                    <div class="card-header">
+                                        <div>
+                                            <h4><strong>Payment Frequency:</strong></h4>
+                                        </div>
+                                        <div>
+                                            <h4><strong>{{count($payments) / count($providers)}}</strong></h4>
+                                        </div>
+                                        <div class="card" style="background-color:white;">
+                                            @if(count($payments) / count($providers) > 1 ) <h5 class="pt-1 pl-1" style="color:red;"><strong>Revise frequency of payment made to service providers.</strong></h5>
+                                            @else
+                                            <h5 class="pt-1 pl-1" style="color:green;"><strong>Your frequency of payment against providers is good.</strong></h5>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: rgb(107, 114, 214);" class="card ">
-                                    <div class="card-header">---</div>
+                                    <div class="card-header">
+                                        <div>
+                                            <h4><strong>Payment Methods:</strong></h4>
+                                        </div>
+                                        <div>
+                                            <h4><strong>Latest: {{$latest_method->name}}
+                                                </strong></h4>
+                                        </div>
+                                        <div class="card" style="background-color:white;">
+                                            <h5 class="pt-1 pl-1" style="color:red;"><strong>Consider using more advantegeous currency.</strong></h5>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
