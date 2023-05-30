@@ -12,7 +12,7 @@
                                 <div style="background-color: coral;" class="card">
                                     <div class="card-header">
                                         <div>
-                                            <h4><strong>Total # of Transactions:</strong></h4>
+                                            <h4><strong># of Transactions:</strong></h4>
                                         </div>
                                         <div>
                                             <h4><strong>( {{count($transactions)}} )</strong></h4>
@@ -81,18 +81,20 @@
                             </div>
                         </div>
                     </div>
+                    {{--
                     <div class="card ">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    ---
+                                    <!--information-->
                                 </div>
                                 <div class="col-md-6">
-                                    ---
+                                    <!--information-->
                                 </div>
                             </div>
                         </div>
                     </div>
+                    --}}
                 </div>
             </div>
         </div>
@@ -106,13 +108,13 @@
                     <div class="card p-1 mb-4 bg-success text-white">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <h5><strong>Income Summary: {{$currency->sign}} {{$income->sum('amount') * $currency->index }}</strong></h5>
                                     <br>
                                     <h5><strong>Highest Income: {{$currency->sign}} {{$income->max('amount') * $currency->index}}</strong></h5>
                                     <h5><strong>Lowest Income: {{$currency->sign}} {{$income->min('amount') * $currency->index}}</strong></h5>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <h5><strong>Sales Summary: {{$currency->sign}} {{ $sales->sum('total_amount') * $currency->index}}</strong></h5>
                                     <br>
                                     <h5><strong>Highest Sale: {{$currency->sign}} {{$sales->max('total_amount') * $currency->index}}</strong></h5>

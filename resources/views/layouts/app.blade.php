@@ -16,6 +16,7 @@
 
     <!-- Icons -->
     <link href="{{ asset('assets') }}/css/nucleo-icons.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/finance.png') }}">
 
     <!-- CSS -->
     <link href="{{ asset('assets') }}/css/white-dashboard.css?v=1.0.0" rel="stylesheet" />
