@@ -1,1 +1,3 @@
-## Laravel Inventory
+## This is the finance management system, developed by Tawona Rwatida (traqe).
+
+The finance management system should allow you to record a transaction and categorize it in either of the following: sales, income, expenses, payments and transfers (transfer are ultimately classified, as either income or expenses). It has an inventory panel that allows managing products, categories of products, transaction, receipts, currency conversion and coming with decision support systems. You can also record clients you are in negotiations with. Methods of payments have a module to account for the type of payment method you use per transaction. Conclusively, these entire modules are benefactors to the balance module, which provides you with the overall balance of the whole system.
