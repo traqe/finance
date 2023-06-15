@@ -81,7 +81,7 @@ class RegisterController extends Controller
         //if there is no currency insert base currency USD ($)
         if (Currency::all()->first() == NULL) {
             $currency = new Currency();
-            $currency->name = 'US Dollars';
+            $currency->name = 'USD';
             $currency->sign = '$';
             $currency->index = 1;
             $currency->selected = 1;

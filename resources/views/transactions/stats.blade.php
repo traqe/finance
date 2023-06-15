@@ -164,7 +164,7 @@
                         <th>Sales</th>
                         <th>Clients</th>
                         <th>Total Stock</th>
-                        <th data-toggle="tooltip" data-placement="bottom" title="Promedio de ingresos por cada venta">Average C / V</th>
+                        <th data-toggle="tooltip" data-placement="bottom" title="Average of total amount of all sales">Sales Average</th>
                         <th>Billed Amount</th>
                         <th>To Finalize</th>
                     </thead>
